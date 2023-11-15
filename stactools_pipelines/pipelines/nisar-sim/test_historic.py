@@ -7,7 +7,6 @@ from stactools_pipelines.pipelines.nisar_sim.historic import get_products_info, 
 
 
 def mock_inventory() -> str:
-
     """returns a fake inventory s3 path"""
 
     conn = boto3.resource("s3", region_name="us-east-1")
@@ -23,7 +22,6 @@ def mock_inventory() -> str:
 
 
 def mock_queue() -> str:
-
     """returns a fake queue URL"""
     sqs = boto3.client("sqs")
     # create fake queue
@@ -33,7 +31,6 @@ def mock_queue() -> str:
 
 @mock_s3
 def test_get_products_info():
-
     s3_path = mock_inventory()
     expected = [
         {
@@ -53,7 +50,6 @@ def test_get_products_info():
 @mock_s3
 @mock_sqs
 def test_handler():
-
     s3_path = mock_inventory()
     queue_url = mock_queue()
 

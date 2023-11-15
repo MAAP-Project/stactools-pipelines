@@ -1,8 +1,7 @@
 ---
-  id: "nisar_sim"
+  id: "nisar-sim"
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
   ingestor_url: "https://stac-ingestor.maap-project.org"
-  inventory_location: "s3://maap-ops-workspace/shared/alexdevseed/nisar/uavsar-simulated/uavsar-dev.jpl.nasa.gov-v2.json"
+  file_list: "s3://maap-ops-workspace/shared/alexdevseed/nisar/uavsar-simulated/uavsar-dev.jpl.nasa.gov-v2.json"
   historic_frequency: 0
-  athena_table: false

@@ -9,7 +9,6 @@ FILE_URL_PREFIX = "https://downloaduav.jpl.nasa.gov/"
 
 
 def get_products_info(inventory_s3_path: str) -> List[Dict]:
-
     """obtain a list of dicts with two entries, one with the product id and one with the release."""
 
     print("getting product ids")

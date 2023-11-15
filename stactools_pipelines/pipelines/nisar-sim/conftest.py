@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock, patch
+
 import pytest
 
 domain = "domain"
@@ -31,29 +32,30 @@ def mock_env(monkeypatch):
 @pytest.fixture()
 def sqs_event():
     SQS_MESSAGE = {
-            "Records": [
-                {
-                    "messageId": "059f36b4-87a3-44ab-83d2-661975830a7d",
-                    "receiptHandle": "AQEBwJnKyrHigUMZj6rYigCgxlaS3SLy0a...",
-                    "body": {
-                        "product_id":"Haywrd_14501_08037_007_080729_L090_CX_01",
-                        "release": "Release2e"
-                    },
-                    "attributes": {
-                        "ApproximateReceiveCount": "1",
-                        "SentTimestamp": "1545082649183",
-                        "SenderId": "AIDAIENQZJOLO23YVJ4VO",
-                        "ApproximateFirstReceiveTimestamp": "1545082649185",
-                    },
-                    "messageAttributes": {},
-                    "md5OfBody": "e4e68fb7bd0e697a0ae8f1bb342846b3",
-                    "eventSource": "aws:sqs",
-                    "eventSourceARN": "arn:aws:sqs:us-east-1:123456789012:my-queue",
-                    "awsRegion": "us-east-1",
+        "Records": [
+            {
+                "messageId": "059f36b4-87a3-44ab-83d2-661975830a7d",
+                "receiptHandle": "AQEBwJnKyrHigUMZj6rYigCgxlaS3SLy0a...",
+                "body": {
+                    "product_id": "Haywrd_14501_08037_007_080729_L090_CX_01",
+                    "release": "Release2e",
                 },
-            ]
-        }
+                "attributes": {
+                    "ApproximateReceiveCount": "1",
+                    "SentTimestamp": "1545082649183",
+                    "SenderId": "AIDAIENQZJOLO23YVJ4VO",
+                    "ApproximateFirstReceiveTimestamp": "1545082649185",
+                },
+                "messageAttributes": {},
+                "md5OfBody": "e4e68fb7bd0e697a0ae8f1bb342846b3",
+                "eventSource": "aws:sqs",
+                "eventSourceARN": "arn:aws:sqs:us-east-1:123456789012:my-queue",
+                "awsRegion": "us-east-1",
+            },
+        ]
+    }
     yield SQS_MESSAGE
+
 
 @pytest.fixture()
 def get_token(pipeline_id, module):
