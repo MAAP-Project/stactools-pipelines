@@ -7,9 +7,7 @@ def inventory_data(inventory: str) -> list:
     inventory = inventory.split("/", 3)
     s3_client = boto3.client("s3")
     response = s3_client.get_object(Bucket=inventory[2], Key=inventory[3])
-    data = response["Body"].read().decode("utf-8").splitlines()
-
-    return data
+    return response["Body"].read().decode("utf-8").splitlines()
 
 
 def handler(event, context):

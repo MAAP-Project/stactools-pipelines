@@ -3,7 +3,7 @@ import os
 
 import requests
 from aws_lambda_powertools.utilities.data_classes import SQSEvent, event_source
-from stactools.cop_dem.stac import create_item
+from stactools.gedi_calval_copc.stac import create_item
 from stactools.core import use_fsspec
 
 from stactools_pipelines.cognito.utils import get_token
@@ -18,13 +18,17 @@ def handler(event: SQSEvent, context):
     use_fsspec()
     for record in event.records:
         key = record["body"]
-        path = f"s3://copernicus-dem-30m/{key}"
-        print(path)
-        stac = create_item(href=path, host="AWS")
-        stac.collection_id = "cop-dem-glo-30"
+        stac = create_item(
+            source=key,
+            destination="s3://nasa-maap-data-store/file-staging/nasa-map/GEDI_CalVal_Lidar_COPC/",
+            copc=True
+        )
+        stac.collection_id = "GEDI_CalVal_Lidar_COPC"
 
         response = requests.post(
-            url=ingestions_endpoint, data=json.dumps(stac.to_dict()), headers=headers
+            url=ingestions_endpoint,
+            data=json.dumps(stac.to_dict()),
+            headers=headers
         )
         try:
             response.raise_for_status()

@@ -2,7 +2,7 @@ import json
 import os
 
 import requests
-from stactools.sentinel1.grd.stac import create_collection
+from stactools.gedi_calval_copc.stac import create_collection
 
 from stactools_pipelines.cognito.utils import get_token
 
@@ -12,7 +12,7 @@ def handler(event, context):
     collections_endpoint = f"{ingestor_url.strip('/')}/collections"
     token = get_token()
     headers = {"Authorization": f"bearer {token}"}
-    collection = create_collection(json_path="")
+    collection = create_collection()
     response = requests.post(
         url=collections_endpoint, data=json.dumps(collection.to_dict()), headers=headers
     )
