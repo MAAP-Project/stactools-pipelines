@@ -4,11 +4,13 @@ import pytest
 
 from stactools_pipelines.pipelines.nisar_sim import conftest
 from stactools_pipelines.pipelines.nisar_sim.app import (
-    DITHER,
-    NMODE,
-    PRODUCT_HREF_PATTERN,
-    AppEvent,
-    handler,
+    handler
+)
+
+key = (
+    "https://nisar.asf.earthdatacloud.nasa.gov/NISAR-SAMPLE-DATA/"
+    "L0B/ALOS1_Rosamond_20081012/"
+    "NISAR_L0_PR_RRSD_001_005_A_128S_20081012T060910_20081012T060926_P01101_F_J_001.h5"
 )
 
 
@@ -16,17 +18,10 @@ from stactools_pipelines.pipelines.nisar_sim.app import (
 @pytest.mark.parametrize("module", ["app"])
 def test_handler(mock_env, sqs_event, get_token, create_item, post):
     # the handler needs a json format for the body
-    body = sqs_event["Records"][0]["body"].copy()
-    sqs_event["Records"][0]["body"] = json.dumps(body)
-    app_event = AppEvent(**body)
     handler(sqs_event, {})
     get_token.assert_called_once()
     create_item.assert_called_once_with(
-        product_href=PRODUCT_HREF_PATTERN.format(
-            product_id=app_event.product_id, release=app_event.release
-        ),
-        nmode=NMODE,
-        dither=DITHER,
+        source=key
     )
     post.assert_called_once_with(
         url=f"{conftest.ingestor_url}/ingestions",

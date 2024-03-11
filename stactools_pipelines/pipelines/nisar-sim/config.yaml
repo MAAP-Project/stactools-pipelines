@@ -3,5 +3,5 @@
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
   ingestor_url: "https://stac-ingestor.maap-project.org"
-  file_list: "s3://maap-ops-workspace/shared/alexdevseed/nisar/uavsar-simulated/uavsar-dev.jpl.nasa.gov-v2.json"
+  inventory_location: 
   historic_frequency: 0

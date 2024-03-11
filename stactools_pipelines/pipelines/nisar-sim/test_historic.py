@@ -34,13 +34,8 @@ def test_get_products_info():
     s3_path = mock_inventory()
     expected = [
         {
-            "product_id": "Haywrd_14501_08037_007_080729_L090_CX_01",
-            "release": "Release2e",
-        },
-        {
-            "product_id": "SDelta_23518_11079_006_111207_L090_CX_02",
-            "release": "Release2b",
-        },
+            "source": "https://nisar.asf.earthdatacloud.nasa.gov/NISAR-SAMPLE-DATA/L0B/ALOS1_Rosamond_20081012/NISAR_L0_PR_RRSD_001_005_A_128S_20081012T060910_20081012T060926_P01101_F_J_001.h5"
+        }
     ]
     actual = get_products_info(s3_path)
 

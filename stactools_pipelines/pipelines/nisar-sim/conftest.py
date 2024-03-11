@@ -37,8 +37,7 @@ def sqs_event():
                 "messageId": "059f36b4-87a3-44ab-83d2-661975830a7d",
                 "receiptHandle": "AQEBwJnKyrHigUMZj6rYigCgxlaS3SLy0a...",
                 "body": {
-                    "product_id": "Haywrd_14501_08037_007_080729_L090_CX_01",
-                    "release": "Release2e",
+                    "source": "Haywrd_14501_08037_007_080729_L090_CX_01",
                 },
                 "attributes": {
                     "ApproximateReceiveCount": "1",

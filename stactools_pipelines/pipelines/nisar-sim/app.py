@@ -1,25 +1,12 @@
 import json
 import os
-from typing import Optional
 
 from aws_lambda_powertools.utilities.data_classes import SQSEvent, event_source
-from pydantic import BaseModel
 from requests import post as requests_post
 from stactools.core import use_fsspec
 from stactools.nisar_sim.stac import create_item
 
 from stactools_pipelines.cognito.utils import get_token
-
-DITHER = "X"
-NMODE = "129"
-PRODUCT_HREF_PATTERN = "https://downloaduav.jpl.nasa.gov/{release}/{product_id}/"
-
-
-class AppEvent(BaseModel):
-    product_id: str
-    release: str
-    nmode: Optional[str] = NMODE
-    dither: Optional[str] = DITHER
 
 
 @event_source(data_class=SQSEvent)
@@ -31,13 +18,9 @@ def handler(event: SQSEvent, context):
     headers = {"Authorization": f"bearer {token}"}
     use_fsspec()
     for record in event.records:
-        print(f"processing record body {record['body']}")
-        app_event = AppEvent(**json.loads(record["body"]))
-        href = PRODUCT_HREF_PATTERN.format(
-            product_id=app_event.product_id, release=app_event.release
-        )
+        key = record["body"]
         stac = create_item(
-            product_href=href, nmode=app_event.nmode, dither=app_event.dither
+            source=key,
         )
         stac.collection_id = "nisar-sim"
         print(f"ingesting {stac.to_dict()}")
