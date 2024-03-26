@@ -1,5 +1,5 @@
 ---
-  id: "gedi-calval-copc"
+  id: "gedi_calval_copc"
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
   ingestor_url: "https://stac-ingestor.dit.maap-project.org"

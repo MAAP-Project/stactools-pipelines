@@ -42,7 +42,7 @@ class PipelineFunction(Construct):
             code=aws_lambda.DockerImageCode.from_ecr(
                 repository=self.repo, tag="latest"
             ),
-            memory_size=1000,
+            memory_size=4096,
             timeout=cdk.Duration.minutes(14),
             log_retention=logs.RetentionDays.ONE_WEEK,
             environment={

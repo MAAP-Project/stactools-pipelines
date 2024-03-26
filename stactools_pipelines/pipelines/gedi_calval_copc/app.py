@@ -18,11 +18,15 @@ def handler(event: SQSEvent, context):
     use_fsspec()
     for record in event.records:
         key = record["body"]
-        stac = create_item(
-            source=key,
-            destination="s3://nasa-maap-data-store/file-staging/nasa-map/GEDI_CalVal_Lidar_COPC/",
-            copc=True
-        )
+        try:
+            stac = create_item(
+                source=key,
+                destination="s3://nasa-maap-data-store/file-staging/nasa-map/GEDI_CalVal_Lidar_COPC",
+                copc=True
+            )
+        except Exception as e:
+            print(f"Failed to create STAC for {key}: {e}")
+            continue
         stac.collection_id = "GEDI_CalVal_Lidar_COPC"
 
         response = requests.post(
