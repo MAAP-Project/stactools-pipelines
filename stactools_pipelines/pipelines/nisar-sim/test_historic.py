@@ -49,6 +49,6 @@ def test_handler():
     queue_url = mock_queue()
 
     os.environ["QUEUE_URL"] = queue_url
-    os.environ["INVENTORY_LOCATION"] = s3_path
+    os.environ["FILE_LOCATION"] = s3_path
 
     handler({}, {})

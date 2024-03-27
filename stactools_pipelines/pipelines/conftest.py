@@ -25,7 +25,7 @@ def mock_env(monkeypatch):
     monkeypatch.setenv("CLIENT_SECRET", client_secret)
     monkeypatch.setenv("CLIENT_ID", client_id)
     monkeypatch.setenv("SCOPE", scope)
-    monkeypatch.setenv("INGESTOR_URL", ingestor_url)
+    monkeypatch.setenv("FILE_LIST", ingestor_url)
     monkeypatch.setenv("OUTPUT_LOCATION", output_location)
     monkeypatch.setenv("QUEUE_URL", queue_url)
 

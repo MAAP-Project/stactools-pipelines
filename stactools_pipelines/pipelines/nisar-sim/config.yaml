@@ -2,6 +2,6 @@
   id: "nisar-sim"
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
-  ingestor_url: "https://stac-ingestor.dit.maap-project.org"
+  ingestor_url: "https://stac-ingestor.maap-project.org"
   file_list: "s3://maap-ops-workspace/jjfrench/NISAR_SIM_inventory.csv" 
   historic_frequency: 0

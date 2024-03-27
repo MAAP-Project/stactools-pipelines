@@ -39,10 +39,13 @@ class Inventory(Construct):
         if pipeline.inventory_location:
             self.create_athena_resources(pipeline)
             historic_docker_env = {
-                "OUTPUT_LOCATION": f"s3://{self.athena_results_bucket.bucket_name}"
+                "OUTPUT_LOCATION": f"s3://{self.athena_results_bucket.bucket_name}",
+                "INVENTORY_LOCATION": pipeline.inventory_location,
             }
         else:
-            historic_docker_env = {}
+            historic_docker_env = {
+                "FILE_LIST": pipeline.file_list,
+            }
 
         historic_docker_env.update(
             {
@@ -53,8 +56,6 @@ class Inventory(Construct):
                     else "None"
                 ),
                 "QUEUE_URL": granule_queue.queue_url,
-                "INVENTORY_LOCATION": pipeline.inventory_location,
-                "FILE_LIST": pipeline.file_list,
             }
         )
 
@@ -85,6 +86,21 @@ class Inventory(Construct):
                 ],
             )
         )
+
+        if pipeline.inventory_location:
+            self.athena_results_bucket.grant_read_write(self.process_inventory_chunk.role)
+            self.process_inventory_chunk.role.add_to_principal_policy(
+                iam.PolicyStatement(
+                    actions=[
+                        "athena:StartQueryExecution",
+                        "athena:GetQueryExecution",
+                        "athena:GetQueryResults",
+                        "glue:GetTable",
+                        "glue:GetDatabase",
+                    ],
+                    resources=["*"],
+                )
+            )
 
         if pipeline.initial_chunk:
             self.chunk_parameter = ssm.StringParameter(
@@ -129,7 +145,7 @@ class Inventory(Construct):
             self,
             id=f"{self.stack_name}-table-creator",
             entry=f"{Path(__file__).parent}/athena_creator",
-            runtime=aws_lambda.Runtime.PYTHON_3_8,
+            runtime=aws_lambda.Runtime.PYTHON_3_9,
             memory_size=1000,
             timeout=cdk.Duration.minutes(14),
             log_retention=logs.RetentionDays.ONE_WEEK,
@@ -147,18 +163,4 @@ class Inventory(Construct):
             self,
             id=f"{self.stack_name}-invoke-table-creator",
             function=self.table_creator_function,
-        )
-
-        self.athena_results_bucket.grant_read_write(self.process_inventory_chunk.role)
-        self.process_inventory_chunk.role.add_to_principal_policy(
-            iam.PolicyStatement(
-                actions=[
-                    "athena:StartQueryExecution",
-                    "athena:GetQueryExecution",
-                    "athena:GetQueryResults",
-                    "glue:GetTable",
-                    "glue:GetDatabase",
-                ],
-                resources=["*"],
-            )
         )

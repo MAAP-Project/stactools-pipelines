@@ -67,6 +67,7 @@ Create environment settings for your pipeline deployment
 ```
 $ export PROJECT=<The project name for resource cost tracking>
 $ export PIPELINE=<Your pipeline name>
+$ export STAGE=<Environment stage>
 ```
 With an AWS profile enabled with sufficient permissions build and push your pipeline image with
 ```
