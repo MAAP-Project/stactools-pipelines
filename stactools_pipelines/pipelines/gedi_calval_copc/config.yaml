@@ -2,6 +2,6 @@
   id: "gedi_calval_copc"
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
-  ingestor_url: "https://stac-ingestor.dit.maap-project.org"
-  inventory_location: "s3://maap-ops-workspace/jjfrench/GEDI_CalVal_Lidar_Data_TEST.csv"
+  ingestor_url: "https://stac-ingestor.maap-project.org"
+  inventory_location: "s3://maap-ops-workspace/jjfrench/GEDI_CalVal_Lidar_Data.csv"
   historic_frequency: 0

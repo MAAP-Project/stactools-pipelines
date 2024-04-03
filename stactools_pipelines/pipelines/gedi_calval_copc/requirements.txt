@@ -3,6 +3,4 @@ jmespath
 s3fs
 boto3
 requests
-chardet # M-chip issue?
-# numpy # M-chip issue?
 rasterio>=1.3
