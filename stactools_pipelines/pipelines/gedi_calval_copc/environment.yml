@@ -1,0 +1,23 @@
+name: "gedi-calval-copc"
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - conda-forge::gdal>=3.3
+  - conda-forge::geos>=3.3
+  - conda-forge::rasterio>=1.3
+  - conda-forge::libstdcxx-ng
+  - conda-forge::numpy
+  - conda-forge::pdal==2.5.5
+  - conda-forge::python-pdal
+  - conda-forge::pyproj==3.5.0
+  - conda-forge::stactools>=0.4.0
+  - conda-forge::pip
+  - pip:
+    - awslambdaric
+    - aws-lambda-powertools
+    - jmespath
+    - s3fs
+    - boto3
+    - requests
+    - git+https://github.com/MAAP-Project/gedi-calval-copc.git@main

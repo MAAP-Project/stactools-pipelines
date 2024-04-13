@@ -42,7 +42,7 @@ class PipelineFunction(Construct):
             code=aws_lambda.DockerImageCode.from_ecr(
                 repository=self.repo, tag="latest"
             ),
-            memory_size=1000,
+            memory_size=1024,
             timeout=cdk.Duration.minutes(14),
             log_retention=logs.RetentionDays.ONE_WEEK,
             environment={
@@ -57,6 +57,7 @@ class PipelineFunction(Construct):
                 ).to_string(),
                 "SCOPE": self.secret.secret_value_from_json("scope").to_string(),
                 "INGESTOR_URL": pipeline.ingestor_url,
+                "HOME": "/root"
             },
         )
         self.open_buckets_statement = iam.PolicyStatement(
@@ -67,6 +68,8 @@ class PipelineFunction(Construct):
                 "s3:Get*",
                 "s3:List*",
                 "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectTagging",
             ],
         )
         self.function.role.add_to_principal_policy(self.open_buckets_statement)

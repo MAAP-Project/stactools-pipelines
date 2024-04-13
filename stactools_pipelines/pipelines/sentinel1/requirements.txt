@@ -1,6 +1,0 @@
-aws-lambda-powertools
-jmespath
-rasterio
-stactools-sentinel1
-s3fs
-boto3
