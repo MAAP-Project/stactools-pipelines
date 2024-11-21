@@ -1,5 +1,0 @@
-aws-lambda-powertools
-jmespath
-git+https://github.com/MAAP-Project/gedi-calval-copc.git@abd32f30746b2d9abd0310db10adfadf81e578c4
-s3fs
-boto3

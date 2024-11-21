@@ -36,6 +36,7 @@ class Inventory(Construct):
             repository_name=f"{pipeline.id}-historic",
         )
 
+        # Must be either INVENTORY_LOCATION or FILE_LIST
         if pipeline.inventory_location:
             self.create_athena_resources(pipeline)
             historic_docker_env = {

@@ -52,8 +52,8 @@ def build_and_push(dockerfile: str, tag: str, pipeline_id: str):
     push_log = client.images.push(ecr_repo_name, tag="latest")
     logging.debug(push_log)
 
-
-with open(f"./stactools_pipelines/pipelines/{pipeline_name}/config.yaml") as f:
+pipeline_path = f"./stactools_pipelines/pipelines/{pipeline_name}"
+with open(f"{pipeline_path}/config.yaml") as f:
     config = yaml.safe_load(f)
     pipeline = Pipeline(**config)
 
@@ -63,9 +63,12 @@ with open(f"./stactools_pipelines/pipelines/{pipeline_name}/config.yaml") as f:
         tag = f"{pipeline.id}-collection"
         build_and_push(dockerfile, tag, pipeline.id)
 
-        dockerfile = "./lambda.Dockerfile"
-        tag = pipeline.id
-        build_and_push(dockerfile, tag, pipeline.id)
+        if os.path.exists(f"{pipeline_path}/lambda.Dockerfile"):
+            build_and_push(f"{pipeline_path}/lambda.Dockerfile", pipeline.id, pipeline.id)
+        else:
+            dockerfile = "./lambda.Dockerfile"
+            tag = pipeline.id
+            build_and_push(dockerfile, tag, pipeline.id)
 
     if pipeline.inventory_location or pipeline.file_list:
         dockerfile = "./lambda.historic.Dockerfile"
