@@ -1,6 +1,0 @@
-aws-lambda-powertools
-jmespath
-s3fs
-boto3
-requests
-rasterio>=1.3
