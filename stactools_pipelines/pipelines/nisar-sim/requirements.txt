@@ -1,0 +1,6 @@
+aws-lambda-powertools
+jmespath
+git+https://github.com/stactools-packages/nisar-sim.git@main
+s3fs
+boto3
+pydantic

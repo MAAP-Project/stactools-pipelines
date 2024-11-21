@@ -3,7 +3,7 @@ from typing import List
 from setuptools import find_packages, setup  # type: ignore
 
 aws_cdk_extras = [
-    "aws-cdk-lib==2.45.0",
+    "aws-cdk-lib==2.134.0",
     "aws-cdk.aws-lambda-python-alpha==2.45.0a0",
     "constructs>=10.0.0",
 ]
@@ -23,9 +23,11 @@ extras_require_dev = [
     "aws-lambda-powertools",
     "boto3",
     "pydantic",
+    "pydantic-settings",
     "pyyaml",
     "docker",
     "isort",
+    "moto",
     "mypy",
     "nodeenv",
     "pre-commit",
