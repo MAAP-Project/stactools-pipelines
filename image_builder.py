@@ -59,9 +59,12 @@ with open(f"{pipeline_path}/config.yaml") as f:
 
     client = docker.from_env()
     if pipeline.compute == "awslambda":
-        dockerfile = "./lambda.collection.Dockerfile"
-        tag = f"{pipeline.id}-collection"
-        build_and_push(dockerfile, tag, pipeline.id)
+        if os.path.exists(f"{pipeline_path}/lambda.collection.Dockerfile"):
+            build_and_push(f"{pipeline_path}/lambda.collection.Dockerfile", pipeline.id, pipeline.id)
+        else:
+            dockerfile = "./lambda.collection.Dockerfile"
+            tag = f"{pipeline.id}-collection"
+            build_and_push(dockerfile, tag, pipeline.id)
 
         if os.path.exists(f"{pipeline_path}/lambda.Dockerfile"):
             build_and_push(f"{pipeline_path}/lambda.Dockerfile", pipeline.id, pipeline.id)
