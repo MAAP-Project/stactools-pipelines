@@ -25,6 +25,7 @@ def parse_s3_key(key: str):
 
 @event_source(data_class=SQSEvent)
 def handler(event: SQSEvent, context):
+    """handler for generating items"""
     ingestor_url = os.environ["INGESTOR_URL"]
     ingestions_endpoint = f"{ingestor_url.strip('/')}/ingestions"
     token = get_token()

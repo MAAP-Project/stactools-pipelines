@@ -8,6 +8,7 @@ from stactools_pipelines.cognito.utils import get_token
 
 
 def handler(event, context):
+    """handler for collection upload"""
     ingestor_url = os.environ["INGESTOR_URL"]
     collections_endpoint = f"{ingestor_url.strip('/')}/collections"
     token = get_token()

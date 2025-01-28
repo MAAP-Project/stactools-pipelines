@@ -28,6 +28,7 @@ import boto3
 
 
 def inventory_data(inventory: str) -> list:
+    """read the inventory file and create a list of keys"""
     _, _, bucket, inventory_key = inventory.split("/", 3)
     s3_client = boto3.client("s3")
     response = s3_client.get_object(Bucket=bucket, Key=inventory_key)
@@ -35,6 +36,7 @@ def inventory_data(inventory: str) -> list:
 
 
 def handler(event, context):
+    """handler for firing messages for historic inventory to the queue"""
     QUEUE_URL = os.environ["QUEUE_URL"]
     INVENTORY_LOCATION = os.environ["INVENTORY_LOCATION"]
     keys = inventory_data(INVENTORY_LOCATION)
