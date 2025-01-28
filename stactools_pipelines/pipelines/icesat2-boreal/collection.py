@@ -1,6 +1,7 @@
+import json
 import os
 
-import httpx
+import requests
 from icesat2_boreal_stac.stac import Variable, create_collection
 
 from stactools_pipelines.cognito.utils import get_token
@@ -15,9 +16,9 @@ def handler(event, context):
     print(collections_endpoint)
     for variable in Variable:
         collection = create_collection(variable)
-        response = httpx.post(
+        response = requests.post(
             url=collections_endpoint,
-            data=collection.to_dict(),
+            data=json.dumps(collection.to_dict()),
             headers=headers,
         )
         print(collection.id)

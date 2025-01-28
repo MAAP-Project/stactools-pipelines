@@ -1,10 +1,26 @@
+import json
 import os
+import re
 
-import httpx
+import requests
 from aws_lambda_powertools.utilities.data_classes import SQSEvent, event_source
 from icesat2_boreal_stac.stac import create_item
 
 from stactools_pipelines.cognito.utils import get_token
+
+
+def parse_s3_key(key: str):
+    # Pattern matches: boreal_(agb|ht)_2020_\d+_(\d{7})\.tif$
+    # \d{7} matches the 7 digit tile ID
+    pattern = r"boreal_(agb|ht)_2020_\d+_(\d{7})\.tif$"
+
+    match = re.search(pattern, key)
+    if match:
+        variable = match.group(1)  # First capture group (agb|ht)
+        tile_id = match.group(2)  # Second capture group (7 digits)
+        return variable, tile_id
+
+    return None, None
 
 
 @event_source(data_class=SQSEvent)
@@ -13,22 +29,25 @@ def handler(event: SQSEvent, context):
     ingestions_endpoint = f"{ingestor_url.strip('/')}/ingestions"
     token = get_token()
     headers = {"Authorization": f"bearer {token}"}
-    use_fsspec()
     for record in event.records:
         key = record["body"]
-        _, _, bucket, input_key = key.split("/", 3)
         try:
+            variable, tile_id = parse_s3_key(key)
+
+            if not variable and tile_id:
+                raise Exception(f"ht/agb and tile_id could not be parsed from {key}")
+
             item = create_item(
                 key,
-                copy_to="s3://nasa-maap-data-store/file-staging/nasa-map/icesat2-boreal-v2.1",
+                copy_to=f"s3://nasa-maap-data-store/file-staging/nasa-map/icesat2-boreal-v2.1/{variable}/{tile_id}",
             )
         except Exception as e:
             print(f"Failed to create item for {key}: {e}")
             continue
 
-        response = httpx.post(
+        response = requests.post(
             url=ingestions_endpoint,
-            data=item.to_dict(),
+            data=json.dumps(item.to_dict()),
             headers=headers,
         )
         try:
