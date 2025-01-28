@@ -1,0 +1,8 @@
+---
+  id: "icesat2-boreal"
+  compute: "awslambda"
+  secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
+  ingestor_url: "https://stac-ingestor.dit.maap-project.org"
+  inventory_location: "s3://maap-ops-workspace/shared/henrydevseed/icesat2-boreal-v2.1-inventory.csv"
+  historic_frequency: 0
+

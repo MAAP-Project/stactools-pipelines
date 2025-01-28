@@ -1,0 +1,5 @@
+git+https://github.com/MAAP-project/icesat2-boreal-stac.git@feat/v2.1
+aws-lambda-powertools
+boto3
+httpx
+
