@@ -14,7 +14,7 @@ def sns_message():
     yield key
 
 
-@pytest.mark.parametrize("pipeline_id", ["panama-copc"])
+@pytest.mark.parametrize("pipeline_id", ["icesat2_boreal"])
 @pytest.mark.parametrize("module", ["app"])
 def test_handler(mock_env, sns_message, sqs_event, get_token, create_item, requests):
     handler(sqs_event, {})
