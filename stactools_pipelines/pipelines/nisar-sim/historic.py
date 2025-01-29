@@ -1,7 +1,9 @@
 import csv
 import os
-from typing import Dict, List
+from typing import List
+
 import boto3
+
 
 def get_products_info(inventory_s3_path: str) -> List[str]:
     """Get the products info from the inventory file in s3"""
@@ -15,6 +17,7 @@ def get_products_info(inventory_s3_path: str) -> List[str]:
     csv_data = obj["Body"].read().decode("utf-8")
     dict_reader = csv.DictReader(csv_data.splitlines())
     return [row["location"] for row in dict_reader]
+
 
 def handler(event, context) -> None:
     print("Historic Handler")

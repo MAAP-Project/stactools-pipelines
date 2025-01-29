@@ -28,6 +28,7 @@ def mock_env(monkeypatch):
     monkeypatch.setenv("FILE_LIST", ingestor_url)
     monkeypatch.setenv("OUTPUT_LOCATION", output_location)
     monkeypatch.setenv("QUEUE_URL", queue_url)
+    monkeypatch.setenv("INGESTOR_URL", ingestor_url)
 
 
 @pytest.fixture

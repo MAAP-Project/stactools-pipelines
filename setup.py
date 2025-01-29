@@ -43,7 +43,7 @@ extras_require = {
 setup(
     name="stactools-pipelines",
     version="0.0.1",
-    python_requires=">=3.9",
+    python_requires=">=3.12",
     author="Development Seed",
     packages=find_packages(),
     package_data={

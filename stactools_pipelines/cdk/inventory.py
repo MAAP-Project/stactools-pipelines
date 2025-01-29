@@ -89,7 +89,9 @@ class Inventory(Construct):
         )
 
         if pipeline.inventory_location:
-            self.athena_results_bucket.grant_read_write(self.process_inventory_chunk.role)
+            self.athena_results_bucket.grant_read_write(
+                self.process_inventory_chunk.role
+            )
             self.process_inventory_chunk.role.add_to_principal_policy(
                 iam.PolicyStatement(
                     actions=[
@@ -146,7 +148,7 @@ class Inventory(Construct):
             self,
             id=f"{self.stack_name}-table-creator",
             entry=f"{Path(__file__).parent}/athena_creator",
-            runtime=aws_lambda.Runtime.PYTHON_3_9,
+            runtime=aws_lambda.Runtime.PYTHON_3_12,
             memory_size=1000,
             timeout=cdk.Duration.minutes(14),
             log_retention=logs.RetentionDays.ONE_WEEK,
