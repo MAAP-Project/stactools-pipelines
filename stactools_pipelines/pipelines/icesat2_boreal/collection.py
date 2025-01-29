@@ -3,8 +3,11 @@ import os
 
 import requests
 from icesat2_boreal_stac.stac import Variable, create_collection
+from pystac import set_stac_version
 
 from stactools_pipelines.cognito.utils import get_token
+
+set_stac_version("1.0.0")
 
 
 def handler(event, context):

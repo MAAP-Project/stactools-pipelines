@@ -42,3 +42,5 @@ class InvokeFunction(Construct):
                 ),
             ),
         )
+
+        function.grant_invoke(self.invoke_lambda)

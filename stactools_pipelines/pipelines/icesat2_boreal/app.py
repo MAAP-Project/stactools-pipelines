@@ -5,8 +5,11 @@ import re
 import requests
 from aws_lambda_powertools.utilities.data_classes import SQSEvent, event_source
 from icesat2_boreal_stac.stac import create_item
+from pystac import set_stac_version
 
 from stactools_pipelines.cognito.utils import get_token
+
+set_stac_version("1.0.0")
 
 
 def parse_s3_key(key: str):

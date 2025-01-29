@@ -7,7 +7,7 @@ FROM public.ecr.aws/lambda/python:3.12
 ARG pipeline
 COPY "./stactools_pipelines/cognito/*" "./stactools_pipelines/cognito/"
 COPY lambda_setup.py ./setup.py
-RUN pip install .
+RUN dnf install -y expat && pip install .
 COPY --from=builder /tmp/site-packages ${LAMBDA_TASK_ROOT}
 COPY "./stactools_pipelines/pipelines/${pipeline}/*" "${LAMBDA_TASK_ROOT}/"
 
