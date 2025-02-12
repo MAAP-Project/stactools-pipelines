@@ -99,11 +99,8 @@ def generate_inventory() -> defaultdict[str, dict[str, str]]:
                         # Check if file already exists in S3
                         try:
                             s3_client.head_object(Bucket=DESTINATION_BUCKET, Key=s3_key)
-                            print(f"File already exists in S3: {s3_key}")
-                            continue
                         except ClientError as e:
                             if e.response["Error"]["Code"] == "404":
-                                print(f"Uploading {filename} to {href}")
                                 s3_client.upload_file(
                                     local_path, DESTINATION_BUCKET, s3_key
                                 )
@@ -122,5 +119,7 @@ def handler(event, context):
     QUEUE_URL = os.environ["QUEUE_URL"]
     inventory = generate_inventory()
     sqs_client = boto3.client("sqs")
-    for keys in inventory.values():
-        sqs_client.send_message(QueueUrl=QUEUE_URL, MessageBody=json.dumps(keys))
+    for i, args in enumerate(inventory.values()):
+        if not i % 1000:
+            print(f"sending the {i}th set of args: {args}")
+        sqs_client.send_message(QueueUrl=QUEUE_URL, MessageBody=json.dumps(args))

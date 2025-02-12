@@ -4,6 +4,7 @@ import os
 import requests
 from aws_lambda_powertools.utilities.data_classes import SQSEvent, event_source
 from pystac import set_stac_version
+from stactools.global_mangrove_watch.constants import COLLECTION_ID
 from stactools.global_mangrove_watch.stac import create_item
 
 from stactools_pipelines.cognito.utils import get_token
@@ -22,6 +23,7 @@ def handler(event: SQSEvent, context):
         keys = json.loads(record["body"])
         try:
             item = create_item(**keys)
+            item.collection = COLLECTION_ID
         except Exception as e:
             print(f"Failed to create item for {keys}: {e}")
             continue
