@@ -84,6 +84,7 @@ class Inventory(Construct):
                     "s3:Get*",
                     "s3:List*",
                     "s3:ListBucket",
+                    "s3:PutObject",
                 ],
             )
         )

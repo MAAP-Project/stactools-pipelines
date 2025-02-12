@@ -40,7 +40,7 @@ DESTINATION_PREFIX = "file-staging/nasa-map/global-mangrove-watch/v3"
 
 def parse_filename(filename: str) -> tuple[str, str]:
     """
-    Parse GMW filename and return (base_key, full_filename)
+    Parse GMW filename and return (item_id, arg_name)
     """
     # Pattern for change files: GMW_N27W110_chng_f1996_t2020_v3.tif
     change_pattern = r"(GMW_[NS]\d+[WE]\d+)_chng_f\d+_t(\d+)_v3\.tif"

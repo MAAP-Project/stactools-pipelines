@@ -3,5 +3,6 @@
   compute: "awslambda"
   secret_arn: "arn:aws:secretsmanager:us-west-2:916098889494:secret:MAAP-STAC-auth-dev/MAAP-workflows-EsykqB" # cognito secret ARN
   ingestor_url: "https://stac-ingestor.dit.maap-project.org"
+  inventory_location: "https://zenodo.org/records/6894273" # placeholder
   historic_frequency: 0
 
