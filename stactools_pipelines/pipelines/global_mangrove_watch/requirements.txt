@@ -1,0 +1,5 @@
+stactools-global-mangrove-watch==0.1.0
+aws-lambda-powertools
+boto3
+requests
+
