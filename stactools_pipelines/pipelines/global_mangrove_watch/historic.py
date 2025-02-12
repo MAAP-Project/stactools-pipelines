@@ -83,7 +83,7 @@ def generate_inventory() -> defaultdict[str, dict[str, str]]:
                 zip_ref.extractall(temp_dir)
 
             for root, _, files in os.walk(temp_dir):
-                for filename in sorted(files)[:10]:
+                for filename in sorted(files):
                     if filename.endswith(".tif"):
                         # Parse filename
                         try:
