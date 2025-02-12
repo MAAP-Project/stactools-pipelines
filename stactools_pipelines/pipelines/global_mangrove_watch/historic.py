@@ -2,6 +2,9 @@
 
 Download the zip files from Zenodo and upload COGs to S3, then pass sets of
 asset hrefs to the item processing step.
+
+HR: I had to run the generate_inventory function outside of the pipeline because
+it would time out on the Lambda otherwise :/
 """
 
 import json

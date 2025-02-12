@@ -23,7 +23,7 @@ def handler(event: SQSEvent, context):
         keys = json.loads(record["body"])
         try:
             item = create_item(**keys)
-            item.collection = COLLECTION_ID
+            item.collection_id = COLLECTION_ID
         except Exception as e:
             print(f"Failed to create item for {keys}: {e}")
             continue
